@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android002</string>
+    <string name="popular_movies_title_text">Movies</string>
+    <string name="popular_tv_title_text">TV</string>
+    <string name="bottom_menu_home_title_text">Home</string>
+    <string name="bottom_menu_search_title_text">Search</string>
+    <string name="bottom_menu_profile_title_text">Profile</string>
 </resources>
