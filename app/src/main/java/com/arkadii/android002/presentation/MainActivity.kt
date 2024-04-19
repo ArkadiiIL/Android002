@@ -1,4 +1,4 @@
-package com.arkadii.android002.view
+package com.arkadii.android002.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

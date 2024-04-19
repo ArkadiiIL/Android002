@@ -1,14 +1,14 @@
-package com.arkadii.android002.view
+package com.arkadii.android002.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.arkadii.android002.databinding.FragmentProfileBinding
+import com.arkadii.android002.databinding.FragmentSearchBinding
 
-class ProfileFragment : Fragment() {
-    private var _binding: FragmentProfileBinding? = null
+class SearchFragment : Fragment() {
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -16,11 +16,11 @@ class ProfileFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     companion object {
-        fun getInstance() = ProfileFragment()
+        fun getInstance() = SearchFragment()
     }
 }

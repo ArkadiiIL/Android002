@@ -3,32 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tv_popular_movies_title"
+        android:id="@+id/tv_popular_content_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/popular_movies_title_text" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_popular_movies"
+        android:id="@+id/rv_popular_content_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:listitem="@layout/item_popular_content_rv"
-        />
-
-    <TextView
-        android:id="@+id/tv_popular_tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/popular_tv_title_text" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_popular_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/item_popular_content_rv"
-        />
-
+        tools:listitem="@layout/item_popular_content_rv" />
 </LinearLayout>
+

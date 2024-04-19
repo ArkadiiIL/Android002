@@ -1,6 +1,8 @@
 package com.arkadii.android002.domain
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
+
 interface ContentRepository {
-    suspend fun getPopularMoviesList(): List<Content>
-    suspend fun getPopularTvList(): List<Content>
+    fun getPopularContentList(): LiveData<PagingData<Content>>
 }
