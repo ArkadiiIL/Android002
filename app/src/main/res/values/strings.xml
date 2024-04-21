@@ -5,4 +5,8 @@
     <string name="bottom_menu_home_title_text">Home</string>
     <string name="bottom_menu_search_title_text">Search</string>
     <string name="bottom_menu_profile_title_text">Profile</string>
+    <string name="image_placeholder_text">No+image+available</string>
+    <string name="search_view_hint">Search by name</string>
+    <string name="search_movie_title">Movies</string>
+    <string name="search_tv_title">TV</string>
 </resources>

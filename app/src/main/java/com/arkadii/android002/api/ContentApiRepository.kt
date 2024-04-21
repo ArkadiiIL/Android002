@@ -17,8 +17,18 @@ object ContentApiRepository : ContentRepository {
     }
 
     override fun getPopularContentList() = Pager(
-        config = PagingConfig(pageSize = 18, maxSize = 180),
-        pagingSourceFactory = { ContentPagingSource(contentService) }
+        config = PagingConfig(18, 180),
+        pagingSourceFactory = { PopularContentPagingSource(contentService) }
+    ).liveData
+
+    override fun getMoviesListByTitle(title: String) = Pager(
+        config = PagingConfig(18, 180),
+        pagingSourceFactory = { SearchMoviesPagingSource(contentService, title) }
+    ).liveData
+
+    override fun getTvListByTitle(title: String) = Pager(
+        config = PagingConfig(18, 180),
+        pagingSourceFactory = { SearchTVPagingSource(contentService, title) }
     ).liveData
 
     private const val BASE_URL = "https://api.themoviedb.org/3/"

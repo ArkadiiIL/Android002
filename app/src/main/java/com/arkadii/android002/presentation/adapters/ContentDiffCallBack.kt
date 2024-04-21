@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.arkadii.android002.domain.Content

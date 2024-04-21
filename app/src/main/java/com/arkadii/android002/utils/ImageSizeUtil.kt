@@ -16,6 +16,15 @@ object ImageSizeUtil {
         }
     }
 
+    fun getPlaceholderSizeForScreen(context: Context): String {
+        val screenWidth = getScreenWidth(context)
+        return when {
+            screenWidth > 1000 -> "342x513"
+            screenWidth > 600 -> "154x231"
+            else -> "92x138"
+        }
+    }
+
     private fun getScreenWidth(context: Context): Int {
         val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
