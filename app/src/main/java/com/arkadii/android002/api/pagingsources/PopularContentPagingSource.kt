@@ -1,8 +1,10 @@
-package com.arkadii.android002.api
+package com.arkadii.android002.api.pagingsources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.arkadii.android002.domain.Content
+import com.arkadii.android002.api.mappers.ContentMapper
+import com.arkadii.android002.api.serivces.ContentService
+import com.arkadii.android002.domain.data.Content
 
 class PopularContentPagingSource(
     private val service: ContentService
@@ -27,9 +29,9 @@ class PopularContentPagingSource(
                 && responseTv.body() != null
             ) {
                 val moviesContendList = responseMovie.body()!!.results
-                    .map(DtoToDomainMapper::mapMovieDtoToContent)
+                    .map(ContentMapper::mapMovieDtoToContent)
                 val tvContentList = responseTv.body()!!.results
-                    .map(DtoToDomainMapper::mapTvDtoToContent)
+                    .map(ContentMapper::mapTvDtoToContent)
                 val data = (moviesContendList + tvContentList)
                     .sortedByDescending { content -> content.popularity }
 

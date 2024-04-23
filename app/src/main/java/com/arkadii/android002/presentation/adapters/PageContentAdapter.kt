@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import com.arkadii.android002.databinding.ItemPopularContentRvBinding
-import com.arkadii.android002.domain.Content
+import com.arkadii.android002.domain.data.Content
 
 class PageContentAdapter(private val context: Context) :
     PagingDataAdapter<Content, ContentViewHolder>(ContentDiffCallBack()) {

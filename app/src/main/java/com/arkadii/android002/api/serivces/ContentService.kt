@@ -1,4 +1,4 @@
-package com.arkadii.android002.api
+package com.arkadii.android002.api.serivces
 
 import com.arkadii.android002.api.dto.MoviesResponseDto
 import com.arkadii.android002.api.dto.TvResponseDto

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.arkadii.android002.R
 import com.arkadii.android002.databinding.ItemPopularContentRvBinding
-import com.arkadii.android002.domain.Content
+import com.arkadii.android002.domain.data.Content
 import com.arkadii.android002.utils.ImageSizeUtil
 import com.squareup.picasso.Picasso
 

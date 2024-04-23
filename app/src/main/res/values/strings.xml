@@ -9,4 +9,11 @@
     <string name="search_view_hint">Search by name</string>
     <string name="search_movie_title">Movies</string>
     <string name="search_tv_title">TV</string>
+    <string name="login_hint">Login</string>
+    <string name="password_hint">Password</string>
+    <string name="login_button_text">Log in</string>
+    <string name="logout_button_text">Log out</string>
+    <string name="field_id_text">ID:</string>
+    <string name="field_name_text">Name:</string>
+    <string name="field_username_text">Username:</string>
 </resources>

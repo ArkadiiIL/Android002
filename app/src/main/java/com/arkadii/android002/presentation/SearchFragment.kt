@@ -1,15 +1,12 @@
 package com.arkadii.android002.presentation
 
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import com.arkadii.android002.databinding.FragmentSearchBinding
-import com.arkadii.android002.domain.Content
+import com.arkadii.android002.domain.data.Content
 import com.arkadii.android002.presentation.adapters.PageContentAdapter
 import kotlinx.coroutines.launch
 

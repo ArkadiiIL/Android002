@@ -1,4 +1,4 @@
-package com.arkadii.android002.domain
+package com.arkadii.android002.domain.data
 
 data class Content(
     val id: Number,

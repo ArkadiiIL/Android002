@@ -2,6 +2,7 @@ package com.arkadii.android002.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import com.arkadii.android002.R
 import com.arkadii.android002.databinding.ActivityMainBinding
@@ -15,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
         val initialFragment = HomeFragment.getInstance()
         setFragment(initialFragment)
-
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {

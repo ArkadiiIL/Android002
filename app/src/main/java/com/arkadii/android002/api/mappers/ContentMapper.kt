@@ -1,10 +1,10 @@
-package com.arkadii.android002.api
+package com.arkadii.android002.api.mappers
 
 import com.arkadii.android002.api.dto.MovieDto
 import com.arkadii.android002.api.dto.TvDto
-import com.arkadii.android002.domain.Content
+import com.arkadii.android002.domain.data.Content
 
-object DtoToDomainMapper {
+object ContentMapper {
     fun mapMovieDtoToContent(movie: MovieDto) =
         Content(
             movie.id,
