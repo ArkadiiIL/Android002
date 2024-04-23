@@ -1,10 +1,11 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.wvclient
 
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.arkadii.android002.presentation.interfaces.CloseWebView
 
-class AuthorizationWebViewClient(private val activity: WebViewActivity, private val token: String) :
+class AuthorizationWebViewClient(private val activity: CloseWebView, private val token: String) :
     WebViewClient() {
 
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {

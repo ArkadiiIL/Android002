@@ -1,5 +1,6 @@
 package com.arkadii.android002.api.repositories
 
+import com.arkadii.android002.BuildConfig
 import com.arkadii.android002.api.errors.AuthError
 import com.arkadii.android002.api.mappers.SessionMapper
 import com.arkadii.android002.api.mappers.UserMapper
@@ -12,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object AuthenticationApiRepository : AuthenticationRepository {
     private const val BASE_URL = "https://api.themoviedb.org/3/"
-    private const val API_KEY = "02b113b496621e5a49428c55c55a3ccc"
+    private const val API_KEY = BuildConfig.API_KEY
     private val loginService: LoginService by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -2,6 +2,7 @@ package com.arkadii.android002.api.pagingsources
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.arkadii.android002.BuildConfig
 import com.arkadii.android002.api.mappers.ContentMapper
 import com.arkadii.android002.api.serivces.ContentService
 import com.arkadii.android002.domain.data.Content
@@ -53,6 +54,6 @@ class PopularContentPagingSource(
     }
 
     companion object {
-        private const val API_KEY = "02b113b496621e5a49428c55c55a3ccc"
+        private const val API_KEY = BuildConfig.API_KEY
     }
 }

@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.sessionmanager
 
 import android.content.Context
 import android.content.SharedPreferences

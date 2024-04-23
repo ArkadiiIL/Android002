@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.activities
 
 import android.app.Activity
 import android.content.Context
@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.arkadii.android002.databinding.ActivityWebViewBinding
+import com.arkadii.android002.presentation.interfaces.CloseWebView
+import com.arkadii.android002.presentation.wvclient.AuthorizationWebViewClient
 
-class WebViewActivity : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity(), CloseWebView {
     private lateinit var binding: ActivityWebViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +28,7 @@ class WebViewActivity : AppCompatActivity() {
         }
     }
 
-    fun closeWebView(result: Boolean) {
+    override fun closeWebView(result: Boolean) {
         if (result) {
             setResult(Activity.RESULT_OK)
         } else setResult(Activity.RESULT_CANCELED)
@@ -40,10 +42,10 @@ class WebViewActivity : AppCompatActivity() {
 
     companion object {
         fun getIntent(context: Context, url: String, token: String): Intent {
-            val intent = Intent(context, WebViewActivity::class.java)
-            intent.putExtra(URL_EXTRA_KEY, url)
-            intent.putExtra(TOKEN_EXTRA_KEY, token)
-            return intent
+            return Intent(context, WebViewActivity::class.java).apply {
+                putExtra(URL_EXTRA_KEY, url)
+                putExtra(TOKEN_EXTRA_KEY, token)
+            }
         }
 
         const val URL_EXTRA_KEY = "url_key"

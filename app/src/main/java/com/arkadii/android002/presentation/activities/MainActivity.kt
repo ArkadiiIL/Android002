@@ -1,11 +1,14 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.webkit.WebView
 import androidx.fragment.app.Fragment
+import com.arkadii.android002.BuildConfig
 import com.arkadii.android002.R
 import com.arkadii.android002.databinding.ActivityMainBinding
+import com.arkadii.android002.presentation.fragments.HomeFragment
+import com.arkadii.android002.presentation.fragments.ProfileFragment
+import com.arkadii.android002.presentation.fragments.SearchFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

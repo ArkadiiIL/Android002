@@ -16,4 +16,8 @@
     <string name="field_id_text">ID:</string>
     <string name="field_name_text">Name:</string>
     <string name="field_username_text">Username:</string>
+    <string name="genres_title_text">Genres:</string>
+    <string name="cast_title_text">Cast:</string>
+    <string name="movie_runtime_postfix">min.</string>
+    <string name="tv_number_of_episode_prefix">Series:</string>
 </resources>

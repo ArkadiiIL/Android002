@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -15,7 +15,9 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import com.arkadii.android002.databinding.FragmentSearchBinding
 import com.arkadii.android002.domain.data.Content
+import com.arkadii.android002.presentation.activities.DetailContentActivity
 import com.arkadii.android002.presentation.adapters.PageContentAdapter
+import com.arkadii.android002.presentation.viewmodels.SearchViewModel
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
@@ -78,6 +80,9 @@ class SearchFragment : Fragment() {
             }
         }
 
+        moviesListAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
+        tvListAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
+
         lifecycleScope.launch {
             moviesListAdapter.loadStateFlow.collect { loadState ->
                 if (loadState.source.refresh is LoadState.NotLoading) {
@@ -102,6 +107,10 @@ class SearchFragment : Fragment() {
             }
         }
         return binding.root
+    }
+
+    private fun showDetailActivity(contentId: Long, isMovie: Boolean) {
+        startActivity(DetailContentActivity.getIntent(requireContext(), contentId, isMovie))
     }
 
     private fun hideKeyboard() {

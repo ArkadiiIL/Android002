@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -12,6 +12,7 @@ import com.arkadii.android002.domain.usecases.GetRequestTokenUseCase
 import com.arkadii.android002.domain.usecases.GetUserUseCase
 import com.arkadii.android002.domain.usecases.LoginUseCase
 import com.arkadii.android002.domain.data.User
+import com.arkadii.android002.presentation.sessionmanager.SessionManager
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(application: Application) : AndroidViewModel(application) {

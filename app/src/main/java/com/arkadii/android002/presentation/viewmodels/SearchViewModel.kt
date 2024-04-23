@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

@@ -1,9 +1,13 @@
 package com.arkadii.android002.api.serivces
 
+import com.arkadii.android002.api.dto.CastResponseDto
+import com.arkadii.android002.api.dto.MovieDetailDto
 import com.arkadii.android002.api.dto.MoviesResponseDto
+import com.arkadii.android002.api.dto.TvDetailDto
 import com.arkadii.android002.api.dto.TvResponseDto
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ContentService {
@@ -32,4 +36,28 @@ interface ContentService {
         @Query("page") page: Int,
         @Query("query") query: String
     ): Response<TvResponseDto>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetail(
+        @Path("movie_id") movie_id: Long,
+        @Query("api_key") apiKey: String
+    ): Response<MovieDetailDto>
+
+    @GET("tv/{series_id}")
+    suspend fun getTvDetail(
+        @Path("series_id") series_id: Long,
+        @Query("api_key") apiKey: String
+    ): Response<TvDetailDto>
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCast(
+        @Path("movie_id") movie_id: Long,
+        @Query("api_key") apiKey: String
+    ): Response<CastResponseDto>
+
+    @GET("tv/{series_id}/credits")
+    suspend fun getTvCast(
+        @Path("series_id") series_id: Long,
+        @Query("api_key") apiKey: String
+    ): Response<CastResponseDto>
 }

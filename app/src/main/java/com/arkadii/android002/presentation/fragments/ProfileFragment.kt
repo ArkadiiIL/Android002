@@ -1,4 +1,4 @@
-package com.arkadii.android002.presentation
+package com.arkadii.android002.presentation.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -11,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.arkadii.android002.databinding.FragmentProfileBinding
+import com.arkadii.android002.presentation.viewmodels.ProfileViewModel
+import com.arkadii.android002.presentation.activities.WebViewActivity
 import com.squareup.picasso.Picasso
 
 class ProfileFragment : Fragment() {
@@ -73,13 +75,18 @@ class ProfileFragment : Fragment() {
                     tvName.text = user.name
                     tvUserName.text = user.userName
                     if (user.avatarPath != null) {
-                        Picasso.get().load( getAvatarUrl(user.avatarPath))
+                        Picasso.get().load(getAvatarUrl(user.avatarPath))
                             .into(ivAvatar)
                     } else {
                         Picasso.get().load(getAvatarPlaceholderUrl(user.userName)).into(ivAvatar)
                     }
                 }
                 showUserDetails()
+            }
+            authError.observe(viewLifecycleOwner) {
+                hideUserDetails()
+                hideProgressCircular()
+                showAuthorizationField()
             }
         }
         return binding.root
