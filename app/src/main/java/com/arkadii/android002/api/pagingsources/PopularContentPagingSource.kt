@@ -40,9 +40,9 @@ class PopularContentPagingSource(
                     data = data,
                     prevKey = if (position == 1) null else (position - 1),
                     nextKey = if (
-                        position == responseMovie.body()!!.totalPages
-                        || position == responseTv.body()!!.totalPages
-                    ) null else (position + 1)
+                        position < responseMovie.body()!!.totalPages.toLong()
+                        || position < responseTv.body()!!.totalPages.toLong()
+                    ) (position + 1) else null
                 )
             } else {
                 LoadResult.Error(throw Exception("No Response"))

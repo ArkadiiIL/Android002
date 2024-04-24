@@ -10,16 +10,23 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.arkadii.android002.databinding.FragmentProfileBinding
-import com.arkadii.android002.presentation.viewmodels.ProfileViewModel
+import com.arkadii.android002.presentation.activities.DetailContentActivity
 import com.arkadii.android002.presentation.activities.WebViewActivity
+import com.arkadii.android002.presentation.adapters.PageContentAdapter
+import com.arkadii.android002.presentation.viewmodels.ProfileViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: ProfileViewModel
     private lateinit var webViewResultLauncher: ActivityResultLauncher<Intent>
+    private lateinit var favoriteMovieAdapter: PageContentAdapter
+    private lateinit var favoriteTvAdapter: PageContentAdapter
     private var requestToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,12 +52,18 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        favoriteMovieAdapter = PageContentAdapter(requireContext())
+        favoriteTvAdapter = PageContentAdapter(requireContext())
         if (viewModel.isSessionActive()) {
             viewModel.getUser()
         } else {
             showAuthorizationField()
         }
         binding.apply {
+            rvFavoriteMovieList.adapter = favoriteMovieAdapter
+            rvFavoriteTvList.adapter = favoriteTvAdapter
+            favoriteMovieAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
+            favoriteTvAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
             buttonLogin.setOnClickListener {
                 viewModel.getRequestToken()
                 showProgressCircular()
@@ -89,6 +102,29 @@ class ProfileFragment : Fragment() {
                 showAuthorizationField()
             }
         }
+        lifecycleScope.launch {
+            favoriteMovieAdapter.loadStateFlow.collect { loadState ->
+                if (loadState.source.refresh is LoadState.NotLoading) {
+                    if (favoriteMovieAdapter.itemCount == 0) {
+                        binding.favoriteMovieListTitle.visibility = View.GONE
+                    } else {
+                        binding.favoriteMovieListTitle.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            favoriteTvAdapter.loadStateFlow.collect { loadState ->
+                if (loadState.source.refresh is LoadState.NotLoading) {
+                    if (favoriteTvAdapter.itemCount == 0) {
+                        binding.favoriteTvListTitle.visibility = View.GONE
+                    } else {
+                        binding.favoriteTvListTitle.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
         return binding.root
     }
 
@@ -106,6 +142,7 @@ class ProfileFragment : Fragment() {
 
     private fun showUserDetails() {
         binding.userDetails.visibility = View.VISIBLE
+        loadFavoriteLists()
     }
 
     private fun hideAuthorizationField() {
@@ -126,6 +163,19 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getAuthorizationUrl(requestToken: String) = "$AUTHORIZATION_URL$requestToken"
+
+    private fun showDetailActivity(contentId: Long, isMovie: Boolean) {
+        startActivity(DetailContentActivity.getIntent(requireContext(), contentId, isMovie))
+    }
+
+    private fun loadFavoriteLists() {
+        viewModel.getFavoriteMoviesList().observe(viewLifecycleOwner) {
+            favoriteMovieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+        viewModel.getFavoriteTvList().observe(viewLifecycleOwner) {
+            favoriteTvAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+    }
 
     companion object {
         fun getInstance() = ProfileFragment()

@@ -26,24 +26,66 @@ class DetailContentActivity : AppCompatActivity() {
         contentId = intent.getLongExtra(CONTENT_ID_KEY, 0)
         isMovie = intent.getBooleanExtra(IS_MOVIE_KEY, false)
 
-        viewModel.getDetailContent(contentId, isMovie)
+        viewModel.apply {
+            if (isSessionActive()) {
+                isFavorite(isMovie, contentId)
+            }
 
-        viewModel.updateContentDetail.observe(this) { contentDetail ->
-            binding.apply {
-                val url = ImageSizeUtil.getImageDetailUrl(
-                    this@DetailContentActivity,
-                    contentDetail.posterPath
-                )
-                Picasso.get().load(url).into(ivPoster)
-                tvTitle.text = contentDetail.name
-                tvYear.text = contentDetail.releaseYear
-                if (contentDetail.isMovie) tvDuration.text = getRuntimeText(contentDetail.runtime)
-                else tvDuration.text = getNumberEpisodeText(contentDetail.numberOfEpisodes)
-                tvOverview.text = contentDetail.overview
-                if (contentDetail.genres.isEmpty()) tvGenreTitle.visibility = View.GONE
-                tvGenre.text = contentDetail.genres
-                if (contentDetail.cast.isEmpty()) tvCastTitle.visibility = View.GONE
-                tvActors.text = contentDetail.cast
+            getDetailContent(contentId, isMovie)
+
+            updateContentDetail.observe(this@DetailContentActivity) { contentDetail ->
+                binding.apply {
+                    val url = ImageSizeUtil.getImageDetailUrl(
+                        this@DetailContentActivity,
+                        contentDetail.posterPath
+                    )
+                    Picasso.get().load(url).into(ivPoster)
+                    tvTitle.text = contentDetail.name
+                    tvYear.text = contentDetail.releaseYear
+                    if (contentDetail.isMovie) tvDuration.text =
+                        getRuntimeText(contentDetail.runtime)
+                    else tvDuration.text = getNumberEpisodeText(contentDetail.numberOfEpisodes)
+                    tvOverview.text = contentDetail.overview
+                    if (contentDetail.genres.isEmpty()) tvGenreTitle.visibility = View.GONE
+                    tvGenre.text = contentDetail.genres
+                    if (contentDetail.cast.isEmpty()) tvCastTitle.visibility = View.GONE
+                    tvActors.text = contentDetail.cast
+                }
+            }
+
+            binding.btnAddFavorite.setOnClickListener {
+                it.isEnabled = false
+                viewModel.addToFavorite(isMovie, contentId)
+            }
+            binding.btnRemoveFavorite.setOnClickListener {
+                it.isEnabled = false
+                viewModel.removeFromFavorite(isMovie, contentId)
+            }
+
+            isFavorite.observe(this@DetailContentActivity) {
+                if (it) binding.btnRemoveFavorite.visibility = View.VISIBLE
+                else binding.btnAddFavorite.visibility = View.VISIBLE
+            }
+            addedToFavorite.observe(this@DetailContentActivity) {
+                if (it) {
+                    binding.btnRemoveFavorite.visibility = View.VISIBLE
+                    binding.btnAddFavorite.visibility = View.GONE
+                    binding.btnAddFavorite.isEnabled = true
+                } else {
+                    binding.btnAddFavorite.isEnabled = true
+                }
+            }
+            removedFromFavorite.observe(this@DetailContentActivity) {
+                if (it) {
+                    binding.btnRemoveFavorite.visibility = View.GONE
+                    binding.btnAddFavorite.visibility = View.VISIBLE
+                    binding.btnRemoveFavorite.isEnabled = true
+                } else {
+                    binding.btnRemoveFavorite.isEnabled = true
+                }
+            }
+            getFavoriteError.observe(this@DetailContentActivity) {
+                finish()
             }
         }
     }

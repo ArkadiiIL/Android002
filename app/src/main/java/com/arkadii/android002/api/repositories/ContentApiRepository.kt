@@ -1,15 +1,20 @@
 package com.arkadii.android002.api.repositories
 
+import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.arkadii.android002.BuildConfig
 import com.arkadii.android002.api.errors.DetailError
 import com.arkadii.android002.api.mappers.ContentMapper
+import com.arkadii.android002.api.pagingsources.FavoriteMoviePagingSource
+import com.arkadii.android002.api.pagingsources.FavoriteTvPagingSource
 import com.arkadii.android002.api.pagingsources.PopularContentPagingSource
 import com.arkadii.android002.api.pagingsources.SearchMoviesPagingSource
 import com.arkadii.android002.api.pagingsources.SearchTVPagingSource
 import com.arkadii.android002.api.serivces.ContentService
+import com.arkadii.android002.domain.data.Content
 import com.arkadii.android002.domain.data.ContentDetail
 import com.arkadii.android002.domain.repositories.ContentRepository
 import retrofit2.Retrofit
@@ -42,6 +47,22 @@ object ContentApiRepository : ContentRepository {
     override fun getTvListByTitle(title: String) = Pager(
         config = PagingConfig(PAGE_SIZE, PREFETCH_DISTANCE),
         pagingSourceFactory = { SearchTVPagingSource(contentService, title) }
+    ).liveData
+
+    override fun getFavoriteMoviesList(
+        accountId: Int,
+        sessionId: String
+    ): LiveData<PagingData<Content>> = Pager(
+        config = PagingConfig(PAGE_SIZE, PREFETCH_DISTANCE),
+        pagingSourceFactory = { FavoriteMoviePagingSource(contentService, accountId, sessionId) }
+    ).liveData
+
+    override fun getFavoriteTvList(
+        accountId: Int,
+        sessionId: String
+    ): LiveData<PagingData<Content>> = Pager(
+        config = PagingConfig(PAGE_SIZE, PREFETCH_DISTANCE),
+        pagingSourceFactory = { FavoriteTvPagingSource(contentService, accountId, sessionId) }
     ).liveData
 
     override suspend fun getContentDetail(content_id: Long, isMovie: Boolean): ContentDetail {

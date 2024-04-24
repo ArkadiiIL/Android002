@@ -71,7 +71,6 @@ class SearchFragment : Fragment() {
                         binding.apply {
                             progressCircular.visibility = View.GONE
 
-
                             moviesListAdapter.submitData(viewLifecycleOwner.lifecycle, first!!)
                             tvListAdapter.submitData(viewLifecycleOwner.lifecycle, second!!)
                         }

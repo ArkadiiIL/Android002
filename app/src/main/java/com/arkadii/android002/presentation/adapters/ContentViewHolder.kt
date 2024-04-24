@@ -17,7 +17,7 @@ class ContentViewHolder(private val binding: ItemPopularContentRvBinding) :
             Picasso.get().load(imageUrl).into(binding.imagePoster)
         }
         if (listener != null) {
-            binding.root.setOnClickListener {
+            binding.cardView.setOnClickListener {
                 listener(content)
             }
         }

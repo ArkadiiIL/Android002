@@ -1,9 +1,8 @@
 package com.arkadii.android002.presentation.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.arkadii.android002.BuildConfig
 import com.arkadii.android002.R
 import com.arkadii.android002.databinding.ActivityMainBinding
 import com.arkadii.android002.presentation.fragments.HomeFragment
@@ -20,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         val initialFragment = HomeFragment.getInstance()
         setFragment(initialFragment)
 
-        binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
                 R.id.navigation_home -> {
                     setFragment(HomeFragment.getInstance())
                     true
@@ -40,6 +39,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        savedInstanceState?.getInt(SELECTED_ITEM_ID_KEY)?.let { selectedItemId ->
+            binding.bottomNavigation.selectedItemId = selectedItemId
+        }
     }
 
     private fun setFragment(fragment: Fragment) {
@@ -48,5 +51,14 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null)
             commit()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(SELECTED_ITEM_ID_KEY, binding.bottomNavigation.selectedItemId)
+        super.onSaveInstanceState(outState)
+    }
+
+    companion object {
+        private const val SELECTED_ITEM_ID_KEY = "selected_item_id"
     }
 }

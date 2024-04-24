@@ -7,9 +7,10 @@ import com.arkadii.android002.api.mappers.ContentMapper
 import com.arkadii.android002.api.serivces.ContentService
 import com.arkadii.android002.domain.data.Content
 
-class SearchTVPagingSource(
+class FavoriteMoviePagingSource(
     private val service: ContentService,
-    private val title: String,
+    private val accountId: Int,
+    private val sessionId: String
 ) : PagingSource<Int, Content>() {
     override fun getRefreshKey(state: PagingState<Int, Content>): Int? {
         return state.anchorPosition?.let {
@@ -21,10 +22,10 @@ class SearchTVPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Content> {
         return try {
             val position = params.key ?: 1
-            val response = service.searchTv(API_KEY, position, title)
+            val response = service.getFavoriteMovies(accountId, sessionId, API_KEY)
 
             if (response.isSuccessful && response.body() != null) {
-                val list = response.body()!!.results.map(ContentMapper::mapTvDtoToContent)
+                val list = response.body()!!.results.map(ContentMapper::mapMovieDtoToContent)
                 LoadResult.Page(
                     data = list,
                     prevKey = if (position == 1) null else (position - 1),

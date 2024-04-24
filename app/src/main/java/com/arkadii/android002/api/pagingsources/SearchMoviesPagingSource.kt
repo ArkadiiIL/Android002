@@ -29,8 +29,8 @@ class SearchMoviesPagingSource(
                     data = list,
                     prevKey = if (position == 1) null else (position - 1),
                     nextKey = if (
-                        position == response.body()!!.totalPages
-                    ) null else (position + 1)
+                        position < response.body()!!.totalPages.toLong()
+                    ) (position + 1) else null
                 )
             } else {
                 LoadResult.Error(throw Exception("No Response"))

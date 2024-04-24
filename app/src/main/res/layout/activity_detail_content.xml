@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -27,7 +28,36 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/test_detail_placeholder" />
+
+                <ImageButton
+                    android:id="@+id/btn_add_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_add_favorite"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+                    app:layout_constraintEnd_toEndOf="@id/iv_poster"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_remove_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_remove_favorite"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+                    app:layout_constraintEnd_toEndOf="@id/iv_poster"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"

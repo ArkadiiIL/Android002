@@ -60,4 +60,18 @@ interface ContentService {
         @Path("series_id") series_id: Long,
         @Query("api_key") apiKey: String
     ): Response<CastResponseDto>
+
+    @GET("account/{account_id}/favorite/movies")
+    suspend fun getFavoriteMovies(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: String,
+        @Query("api_key") apiKey: String
+    ): Response<MoviesResponseDto>
+
+    @GET("account/{account_id}/favorite/tv")
+    suspend fun getFavoriteTv(
+        @Path("account_id") accountId: Int,
+        @Query("session_id") sessionId: String,
+        @Query("api_key") apiKey: String
+    ): Response<TvResponseDto>
 }
