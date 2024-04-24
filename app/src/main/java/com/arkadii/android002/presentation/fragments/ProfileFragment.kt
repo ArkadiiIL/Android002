@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
+import com.arkadii.android002.R
 import com.arkadii.android002.databinding.FragmentProfileBinding
 import com.arkadii.android002.presentation.activities.DetailContentActivity
 import com.arkadii.android002.presentation.activities.WebViewActivity
 import com.arkadii.android002.presentation.adapters.PageContentAdapter
 import com.arkadii.android002.presentation.viewmodels.ProfileViewModel
+import com.arkadii.android002.utils.NetworkUtils
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
@@ -65,9 +68,13 @@ class ProfileFragment : Fragment() {
             favoriteMovieAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
             favoriteTvAdapter.setListener { showDetailActivity(it.id.toLong(), it.isMovie) }
             buttonLogin.setOnClickListener {
-                viewModel.getRequestToken()
-                showProgressCircular()
-                hideAuthorizationField()
+                if (NetworkUtils.isNetworkAvailable(requireContext())) {
+                    viewModel.getRequestToken()
+                    showProgressCircular()
+                    hideAuthorizationField()
+                } else {
+                    showConnectionError()
+                }
             }
             buttonLogout.setOnClickListener {
                 viewModel.logOut()
@@ -175,6 +182,11 @@ class ProfileFragment : Fragment() {
         viewModel.getFavoriteTvList().observe(viewLifecycleOwner) {
             favoriteTvAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
+    }
+
+    private fun showConnectionError() {
+        val message = getString(R.string.no_internet_connection_message)
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
